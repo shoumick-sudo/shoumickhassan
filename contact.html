@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - John Doe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Header & Navigation -->
+    <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-cyan-400">JD.</a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="hover:text-cyan-400 transition duration-300">Home</a>
+                <a href="about.html" class="hover:text-cyan-400 transition duration-300">About</a>
+                <a href="portfolio.html" class="hover:text-cyan-400 transition duration-300">Portfolio</a>
+                <a href="blog.html" class="hover:text-cyan-400 transition duration-300">Blog</a>
+                <a href="contact.html" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Contact</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="index.html" class="block hover:text-cyan-400 transition duration-300">Home</a>
+            <a href="about.html" class="block hover:text-cyan-400 transition duration-300">About</a>
+            <a href="portfolio.html" class="block hover:text-cyan-400 transition duration-300">Portfolio</a>
+            <a href="blog.html" class="block hover:text-cyan-400 transition duration-300">Blog</a>
+            <a href="contact.html" class="block bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300 mt-2">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-16 md:py-24">
+        <section class="text-center max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h1>
+            <p class="text-gray-300 text-lg">
+                Have a project in mind, or just want to say hello? I'd love to hear from you. Fill out the form below or email me at <a href="mailto:hello@johndoe.com" class="text-cyan-400 hover:underline">hello@johndoe.com</a>.
+            </p>
+        </section>
+
+        <!-- Contact Form -->
+        <section class="mt-16 max-w-2xl mx-auto">
+            <form action="#" method="POST" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300">Name</label>
+                    <input type="text" name="name" id="name" required class="mt-1 block w-full bg-gray-800 border border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+                    <input type="email" name="email" id="email" required class="mt-1 block w-full bg-gray-800 border border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
+                    <textarea name="message" id="message" rows="4" required class="mt-1 block w-full bg-gray-800 border border-gray-600 rounded-md shadow-sm py-3 px-4 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="text-2xl hover:text-cyan-400 transition duration-300"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-2xl hover:text-cyan-400 transition duration-300"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-2xl hover:text-cyan-400 transition duration-300"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p>&copy; 2024 John Doe. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
