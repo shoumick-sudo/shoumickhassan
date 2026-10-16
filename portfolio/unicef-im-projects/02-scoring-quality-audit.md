@@ -35,6 +35,9 @@ Rank among valid same-skill records: `1+COUNTIFS(skill_column,current_skill,scor
 
 A complete release workflow also requires official approved scoring policy, locked inputs, exception owners, reviewer action and versioned correction records.
 
+
+**Runnable source (synthetic):** [qa_examples.py](qa_examples.py), with fictional assessment records, invalid-row filters and expected aggregate checks. No original competition data are included.
+
 ## Applicant test
 
 Open the workbook in **Microsoft Excel**, independently recreate a PivotTable, explain the three invalid rows and the current valid rank, and show how a reviewer-approved correction changes the summary. A Google Sheets formula is not sufficient evidence of desktop Excel expertise.
