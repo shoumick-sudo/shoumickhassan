@@ -19,6 +19,12 @@ At CRDS (September 2019–December 2021) I have reported leading a five-person p
 6. Combine technical and stakeholder inputs into a transparent priority table with stated weights, source confidence and limitations.
 7. Map licensed public administrative data or clearly **fictional** locations using a verified QGIS project with CRS, attribution and legend.
 
+## Fictional data-quality exercise
+
+[WASH site QA and triage workbook](https://docs.google.com/spreadsheets/d/100kehB5SG1-pwCD5Jdyx9hc-TyqT_DaLuJInFUJ-kSI/edit) includes ten **fictional** site-observation rows in Zone-1/Zone-2, two duplicate S06 IDs and one missing S09 observation date. Formula-based QA quarantines three rows; seven remain eligible for descriptive triage (four HIGH, one MEDIUM and two LOW using an illustrative rule). There are no real site coordinates, observations, beneficiaries or population needs estimates. Workbook external Drive access may require an explicit permission change.
+
+This spreadsheet is a newly constructed teaching exercise, not the historical CEGIS source or a real QGIS project.
+
 ## GIS provenance boundary
 
 ArcGIS DEM/watershed delineation was part of a separate BUET undergraduate academic thesis. It must **not** be described as GIS work on the CEGIS WASH project without supporting records.
