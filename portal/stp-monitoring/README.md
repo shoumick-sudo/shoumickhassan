@@ -1,6 +1,8 @@
-# STP monitoring portal
+# STP Monitoring & Corrective Action
 
-Independent, AI-assisted portfolio reconstruction by Shoumick Hassan. All provider, monitoring and action data are synthetic. This is not an original NSDA system or UNICEF product. Professional monitoring duties are applicant-confirmed; the web application is a new build.
+A working portal for versioned monitoring reports, reviewer approvals, corrective actions and audit history. Confidential professional records are excluded from the public portal; the current dataset is synthetic sample data.
+
+The workflow is informed by Shoumick Hassan’s confirmed professional experience. This is a separate 2026 implementation built with substantial AI assistance, with no claim of prior institutional deployment or endorsement. Presentation settings live in `client/presentation.js`; see [PORTAL_REPLICATION_GUIDE.md](PORTAL_REPLICATION_GUIDE.md) for the build standard and reuse map.
 
 ## Workflows
 

@@ -8,7 +8,7 @@ Original methods and workbook: https://shoumick-humanitarian-im-evidence.snappyr
 
 ## Start using it
 
-1. Open the portal. Recruiters can inspect the public showcase without signing in.
+1. Open the portal. Visitors can inspect the public monitoring workspace without signing in.
 2. Choose **Create account**, using your own email and a password of at least 12 characters. Credentials are managed by Neon Auth; do not share them in chat.
 3. Open **Workspace → Create private workspace**. Give it a name. It starts with fictional providers and sample monitoring records.
 4. Open **Reports**, choose a provider/round and save a new draft. Reopen the record to see its version history. As workspace owner, choose **Review this version**, record a note and approve or reject it.
@@ -31,8 +31,8 @@ The underlying professional duties remain applicant-confirmed historical experie
 
 Suggested CV project entry:
 
-**STP Monitoring & Corrective-Action Portal — Independent Portfolio Project (2026)**
-Developed an AI-assisted monitoring portal using Neon Postgres and Render, demonstrating versioned reporting, role-based review, evidence-verified corrective actions and persistent audit trails with synthetic data.
+**STP Monitoring & Corrective-Action Portal (2026)**
+Built and deployed a monitoring portal using Neon PostgreSQL and Render, with versioned reporting, role-based review, evidence-verified corrective actions and persistent audit history. Public version reproduces professional workflows using synthetic sample data; developed with substantial AI assistance.
 
 ## Hosting and limits
 
@@ -55,3 +55,11 @@ The first live build checks found and fixed ambiguous date ordering and a UUID/t
 Render deployment `dep-db93ct3bc2fs73cnac6g` reached **live** on 16 October 2026 at 14:37:43 UTC. Deployed application commit: `e5d479d4a819558e6c85fc60dfd214fa8c7d894b`. The service has `NPM_CONFIG_INCLUDE=dev` so the production build includes Vite. Five tests passed against the real database with no skips; generated synthetic QA accounts and workspaces are isolated from the recruiter showcase.
 
 Final deployed-URL smoke check: **PASS**. It exercised /health, unauthenticated denial, public write rejection, real managed signup and JWT, private workspace creation, draft persistence after reload, approval and score recalculation, rejection of an incomplete closure, evidence-verified saved closure and audit persistence. Independent Neon readback confirmed the review and action events. The public page was visually verified at https://stp-monitoring-portal.onrender.com/ . No real NSDA or applicant private data were used.
+
+## Public presentation update — 16 October 2026
+
+The portal uses normal product language with a persistent notice above the header: “Confidential professional records are excluded from this public portal. Synthetic sample data are used to reproduce the monitoring and follow-up workflow.”
+
+About retains data provenance, illustrative scoring and substantial AI assistance. No original institutional deployment is claimed. The dataset is unchanged; it does not contain verified public-source records. `PORTAL_REPLICATION_GUIDE.md` documents the architecture and next portal candidates. Presentation is centralized in `client/presentation.js`.
+
+Local verification: production frontend build and three domain tests passed; two database/authentication tests skipped locally because no connection was supplied. Deployment verification for this update is recorded separately below.
