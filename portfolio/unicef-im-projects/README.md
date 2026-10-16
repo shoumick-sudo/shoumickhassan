@@ -29,6 +29,10 @@ My professional work spans development-field research, government programme coor
 
 The Google Sheets links may require viewer permissions. The four case notes on GitHub are public and readable without Drive access. Source data within these demonstrations are fabricated, except generic references to publicly known geography or methods.
 
+## Fictional field-data inspection
+
+- [WASH field observation QA workbook (Google Sheets)](https://docs.google.com/spreadsheets/d/100kehB5SG1-pwCD5Jdyx9hc-TyqT_DaLuJInFUJ-kSI/edit) — ten invented sites, duplicate/blank-date flags, quarantine and a transparent example priority rule. Real GIS work still requires a separate tested map.
+
 ## What is **not** claimed
 
 No employment at UNICEF/UN agencies; no actual Rohingya-response delivery; no live JRP/HAC/HPM submission; no production ActivityInfo, CPIMS+ or DHIS2 operation; no institutional adoption of a prototype; no measured beneficiary impact; no independently verified applicant expertise merely from code generated with AI.
