@@ -17,6 +17,9 @@ My professional work spans development-field research, government programme coor
 | [03 — WASH field-assessment methods](03-wash-assessment-methods.md) | Field protocol, data review and translation to planning | Historical fieldwork account; **new QGIS proof pending** |
 | [04 — Humanitarian IM system demonstration](04-humanitarian-im-demonstrator.md) | Live dashboard, SQL/Python source, data-quality logic, version-approved reporting | **AI-assisted synthetic portfolio** |
 
+
+- [Executable fictional registry + assessment QA script](qa_examples.py) — requires only Python 3; built with AI assistance; applicant independent run pending.
+
 ## Live working materials
 
 - [Humanitarian IM live demonstrator](https://shoumick-humanitarian-im-evidence.snappyraven4.chatgpt.site)
