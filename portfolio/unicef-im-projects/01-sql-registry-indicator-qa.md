@@ -41,6 +41,9 @@ ORDER BY p.ministry_group;
 
 This query expresses a method, **not actual NSDA SQL**. A release process must additionally review flagged rows, record a correction and reconcile approved output. For this invented example, excluding both duplicate CR12 rows leaves **5** reviewed accredited course IDs in Group-A, and **3** in Group-B, assuming all other rows pass their checks.
 
+
+**Runnable source (synthetic):** [qa_examples.py](qa_examples.py). It embeds the same fictional provider and course IDs, checks duplicates and orphans, and asserts expected totals. No Google Drive access is required.
+
 ## Interview demonstration
 
 Explain the difference between provider grain and course grain; correct the duplicate and orphan in a working copy; show why COUNT(*) is unsafe for provider totals; reconcile the changed result; retain the original exception log.
