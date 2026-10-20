@@ -1,0 +1,17 @@
+# Methodology and governance
+
+The immutable original August workbook is parsed from its Standard breakdown sheet. Each numeric detail row inherits the most recent published camp label; source total rows are controls, not observations. Sex/age cells must sum exactly to the row population. All 35 published group subtotals and the grand total must reconcile. Missing block SSIDs remain absent, and small-area records stay out of the public dataset.
+
+September PDF page 2 contains two side-by-side population tables. Poppler layout extraction preserves the rows; a strict label/families/individuals parser returns 35 unique groups. Their individuals and families must equal the published grand totals. The 11 public webpage values are corroborating excerpts and are superseded for completeness by the original PDF table. No September block details are inferred.
+
+Monthly joins use exact canonical published names; only footnote asterisks and whitespace are removed. No fuzzy matches, coordinates, camp positions or population values are invented. Each group retains its source ID and date. Numerical differences describe published snapshots, not causal movement estimates.
+
+HDX camp polygons: 20230412_A1_Camp_Outlines.zip; dataset rights label Public Domain / No restrictions (CC0). Each CampName matches one of the population groups; CampSSID is retained for auditing. All 33 polygons must be valid in their original UTM zone 46N CRS. Transformation uses always_xy to EPSG:4326, and coordinates are rounded to seven decimal degrees for serialization. Original geometry areas use EPSG:32646; current camp density is not asserted from old boundaries. Bhasan Char and Other remain unmatched. Map exports use a labelled geographic display approximation and cite the historical geometry.
+
+UNICEF chart values are verified in their original sequence on page 1 of the H1 2026 report; headline reach values are verified against the same page. Target attainment, funding and service reach use separate measure types, scopes, units and dates. The target shortfall field represents percentage points remaining to the annual target, not a schedule performance judgment. Funding >100% is preserved. Do not add service counts across sectors.
+
+WASH source ZIP was acquired intact and its 78,886 shapefile records inspected. Its attribute workbook provides counts of tubewells, latrine cubicles and bathing cubicles, not a validated current functionality measure. No person records were acquired. Exact points are held in the private source archive while explicit reuse terms, timeliness, ID duplication and status definitions remain gates. The application shows acquisition status only; no invented service results, ratios or facility coordinates appear.
+
+Warehouse: separate cxb_public database and cxb schema on a separate Neon project. A public reader role receives schema usage and table SELECT; INSERT/UPDATE privileges are tested separately. No write API exists. Credentials are supplied to Render as server-side secret environment variables. API readiness checks verify access to the versioned release; DB outage produces 503. The static local release is used only when no DATABASE_URL is configured and is labelled as local.
+
+ETL requires raw originals and the previously source-transcribed UNICEF CSVs. It is not an unattended scheduled refresh: source changes require revalidation and a new release. Logs, rights, hashes, definitions and limitations accompany every future update.

@@ -1,0 +1,62 @@
+{
+  "summary": {
+    "august_population": 1204492,
+    "september_population": 1206528,
+    "change": 2036,
+    "groups": 35,
+    "matched_groups": 35,
+    "august_detail_rows": 279,
+    "missing_block_ids": 34,
+    "september_cxb": 1173291,
+    "september_bhasan_char": 33237
+  },
+  "checks": [
+    {
+      "rule": "August total and 35 subtotals",
+      "status": "PASS",
+      "detail": "279 detail rows reconcile to 1,204,492 individuals and 251,166 families."
+    },
+    {
+      "rule": "Age-sex categories",
+      "status": "PASS",
+      "detail": "12 disjoint broad age/sex cells sum to each of 279 source detail rows; alternate five-year sheet excluded."
+    },
+    {
+      "rule": "September completeness",
+      "status": "PASS",
+      "detail": "All 35 PDF groups extracted; 1,206,528 individuals and 251,635 families. Full September block workbook remains unavailable."
+    },
+    {
+      "rule": "Cross-month keys",
+      "status": "PASS",
+      "detail": "35/35 exact normalized names. RC footnote asterisks stripped; no fuzzy matching."
+    },
+    {
+      "rule": "Missing August block identifiers",
+      "status": "WARNING",
+      "detail": "34 rows retain missing source IDs; no invented codes."
+    },
+    {
+      "rule": "UNHCR HTML/JSON freshness",
+      "status": "RESOLVED",
+      "detail": "Earlier archived disagreement no longer reproduced: downloaded feed now reports 30 Sep 2026 and 1,173,291 CXB. Checked 20 Oct 2026."
+    },
+    {
+      "rule": "UNICEF scope",
+      "status": "WARNING",
+      "detail": "HAC target attainment, sector funding and Rohingya headline reach use different definitions. No cross-sector sum or September coverage ratio."
+    },
+    {
+      "rule": "WASH point redistribution",
+      "status": "BLOCKED",
+      "detail": "Historical September 2025 infrastructure acquired; explicit reuse terms and field functionality definitions unresolved. Precise points withheld from public app."
+    }
+  ],
+  "input_hashes": {
+    "unhcr_august_2026.xlsx": "18a9a7de43778e07391024a0404426c7152c40e46dfc39fe24021ad709957ab7",
+    "unhcr_sep2026.pdf": "4c51cf230831e3d5ac9c8b13653e44bbe76273413c7ffc28b921b9ad6f6cdf41",
+    "unicef_h1_2026.pdf": "f1da542dbdd988afbf8898d219cea1a0032ac283d4c51844d6b5359b2d225851",
+    "unhcr_population.json": "a7c37d87b30e6449feb5d493b74bce0df12744a28dcbf0b7708b8a690f699141",
+    "wash_infrastructure_sep2025.zip": "210d328104fe3f534b4c920300bfcd2f84a1665ddff3d7d231bf5b92baeb88c1"
+  }
+}

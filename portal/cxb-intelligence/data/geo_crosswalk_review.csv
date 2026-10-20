@@ -1,0 +1,36 @@
+population_label,geometry_label,pcode,method,status
+Camp 16,Camp 16,CXB-224,exact published CampName,matched
+Camp 2E,Camp 2E,CXB-203,exact published CampName,matched
+Camp 15,Camp 15,CXB-223,exact published CampName,matched
+Kutupalong RC,Kutupalong RC,CXB-221,exact published CampName,matched
+Camp 9,Camp 9,CXB-213,exact published CampName,matched
+Camp 10,Camp 10,CXB-214,exact published CampName,matched
+Camp 18,Camp 18,CXB-215,exact published CampName,matched
+Camp 8W,Camp 8W,CXB-211,exact published CampName,matched
+Camp 3,Camp 3,CXB-205,exact published CampName,matched
+Camp 5,Camp 5,CXB-209,exact published CampName,matched
+Camp 1W,Camp 1W,CXB-202,exact published CampName,matched
+Camp 6,Camp 6,CXB-208,exact published CampName,matched
+Camp 14,Camp 14,CXB-222,exact published CampName,matched
+Camp 2W,Camp 2W,CXB-204,exact published CampName,matched
+Camp 11,Camp 11,CXB-217,exact published CampName,matched
+Camp 12,Camp 12,CXB-218,exact published CampName,matched
+Camp 1E,Camp 1E,CXB-201,exact published CampName,matched
+Camp 13,Camp 13,CXB-220,exact published CampName,matched
+Camp 17,Camp 17,CXB-212,exact published CampName,matched
+Camp 22,Camp 22,CXB-085,exact published CampName,matched
+Camp 25,Camp 25,CXB-017,exact published CampName,matched
+Camp 27,Camp 27,CXB-037,exact published CampName,matched
+Camp 24,Camp 24,CXB-233,exact published CampName,matched
+Camp 26,Camp 26,CXB-025,exact published CampName,matched
+Nayapara RC,Nayapara RC,CXB-089,exact published CampName,matched
+Camp 20,Camp 20,CXB-216,exact published CampName,matched
+Camp 8E,Camp 8E,CXB-210,exact published CampName,matched
+Camp 4 Extension,Camp 4 Extension,CXB-232,exact published CampName,matched
+Camp 4,Camp 4,CXB-206,exact published CampName,matched
+Camp 20 Extension,Camp 20 Extension,CXB-234,exact published CampName,matched
+Camp 19,Camp 19,CXB-219,exact published CampName,matched
+Camp 7,Camp 7,CXB-207,exact published CampName,matched
+Camp 21,Camp 21,CXB-108,exact published CampName,matched
+Bhasan Char,,,no geometry in source,unmatched
+Other,,,no geometry in source,unmatched
