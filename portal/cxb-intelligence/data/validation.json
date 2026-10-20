@@ -50,6 +50,11 @@
       "rule": "WASH point redistribution",
       "status": "BLOCKED",
       "detail": "Historical September 2025 infrastructure acquired; explicit reuse terms and field functionality definitions unresolved. Precise points withheld from public app."
+    },
+    {
+      "rule": "Camp geometry / crosswalk",
+      "status": "PASS",
+      "detail": "33 valid polygons transformed from EPSG:32646 to 4326. Exact name joins; unmatched: Bhasan Char, Other. Historical geometry explicitly labelled."
     }
   ],
   "input_hashes": {
@@ -57,6 +62,7 @@
     "unhcr_sep2026.pdf": "4c51cf230831e3d5ac9c8b13653e44bbe76273413c7ffc28b921b9ad6f6cdf41",
     "unicef_h1_2026.pdf": "f1da542dbdd988afbf8898d219cea1a0032ac283d4c51844d6b5359b2d225851",
     "unhcr_population.json": "a7c37d87b30e6449feb5d493b74bce0df12744a28dcbf0b7708b8a690f699141",
-    "wash_infrastructure_sep2025.zip": "210d328104fe3f534b4c920300bfcd2f84a1665ddff3d7d231bf5b92baeb88c1"
+    "wash_infrastructure_sep2025.zip": "210d328104fe3f534b4c920300bfcd2f84a1665ddff3d7d231bf5b92baeb88c1",
+    "hdx_camp_outlines.zip": "edf58b70a37c6110d4bfbea5dd1df4a0b6cd86d10ab3c9db417be52a7a480c7d"
   }
 }

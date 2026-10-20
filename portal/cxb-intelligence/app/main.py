@@ -1,5 +1,5 @@
 """Read-only, source-attributed public analytical API."""
-import csv,hashlib,io,json,os
+import csv,hashlib,io,json,os,textwrap
 from pathlib import Path
 from fastapi import FastAPI,HTTPException,Query
 from fastapi.responses import FileResponse,Response
@@ -61,7 +61,9 @@ def report():
  def line(t,size=10):
   nonlocal y
   c.setFont('Helvetica',size)
-  for s in simpleSplit(t,'Helvetica',size,490):
+  for src,dst in [('→',' -> '),('−','-'),('–','-'),('’',"'"),('‘',"'")]:t=t.replace(src,dst)
+  wrapped=textwrap.wrap(t,width=110 if size<=8 else 90,break_long_words=True,break_on_hyphens=False)
+  for s in [line for chunk in wrapped for line in simpleSplit(chunk,'Helvetica',size,490)]:
    if y<65:c.showPage();y=800;c.setFont('Helvetica',size)
    c.drawString(50,y,s);y-=size+5
  line("Cox's Bazar | Public Evidence Brief",17);line('Independent AI-assisted portfolio project | Release 0.1.0 | 20 October 2026');line('Not an official UN, UNICEF or NSDA operational system.');y-=12
