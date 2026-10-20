@@ -1,13 +1,13 @@
-# Release validation — 20 October 2026
+# Release 0.2.0 validation - 20 October 2026
 
-## Automated checks executed
+15 pytest checks cover both published month/family totals, 840 date-specific demographic cells, count changes, missing block IDs, September workbook/PDF crosschecks, 245 matching nonblank block keys, 33 valid polygons, indicator definitions, restricted-point exclusion, filtered APIs/CSVs, projected SVG/PDF map downloads, WASH camp audit reconciliation, security headers and read-only APIs.
 
-12 pytest tests passed on the local release: original month totals and family totals; group uniqueness; demographic reconciliation; exact count changes; retention of 34 missing source block IDs; 33 valid source polygons and WGS84 coordinate bounds; indicator measure distinctions and funding >100%; exclusion of restricted points; API date and camp filtering; CSV filter reconciliation; PDF validity/security headers/read-only API; frontend asset serving; and current source-quality statuses.
+A fresh directory replay reconstructed byte-identical release JSON from original XLSX/PDF/ZIP inputs and source-transcribed UNICEF chart CSVs. This is assistant-run reproducibility evidence, not applicant independent execution.
 
-A separate PostgreSQL/PostGIS check records the normalized warehouse totals, all polygon validity, sum of changes and absence of reader INSERT/UPDATE privileges. See database validation JSON in Drive.
+The WASH spatial audit tests all 78,886 original points against the historical 2023 boundaries, retaining 619 outside all polygons and one in a different camp. All 33 camp sums of the three quantity fields exactly match the publisher's own pivot. Neither unit counts nor spatial agreement establish unique functional capacity or present service access. Explicit point redistribution rights and operational definitions remain unresolved.
 
-Local PostgreSQL TCP access is unavailable in this execution environment (DNS failure); warehouse load used the connected Neon SQL transaction tool. Runtime connection is tested separately from Render. Failed loads were transactional and did not partially modify source tables.
+Native QGIS execution, saved-project reopening, layer validity, GeoPackage geometry compliance and layout render verification are recorded in QGIS_QA.json in the GIS handover. Desktop execution uses QGIS 3.34.4; the web service does not require QGIS. The prepared script does not establish the applicant's desktop proficiency.
 
-Live hosting, browser filters/map/export checks and mobile layout are tracked in the deployment record. This file alone is not proof that they passed.
+Normalized PostgreSQL/PostGIS and versioned release checks are recorded separately in Drive: month totals, 840 demographic rows, 33 valid geometries, 33 WASH camp audit rows, JSON/normalized equality and SELECT-only public web role. Local PostgreSQL TCP egress is unavailable; load uses the connected Neon SQL transaction tool. Live Render health/hash/browser checks and deploy commit are recorded in the release status. Do not infer these from local tests alone.
 
-Not complete: full September block-level workbook; WASH rights/functionality clearance; geospatial facility inventory analysis; applicant independent rerun and five-minute demonstration. No claim of independent human verification or operational institutional adoption.
+Remaining gates: precise WASH point reuse, unit/ID interpretation and current functionality/date validation; applicant independent rerun and five-minute demonstration; applicant CV review and application submission. No operational adoption, current service adequacy, causal movement or independent human validation is claimed.

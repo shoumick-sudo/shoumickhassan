@@ -14,8 +14,8 @@ def digest(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def writecsv(path,rows):
  if not rows:return
  with open(path,'w',newline='',encoding='utf-8') as f:
-  w=csv.DictWriter(f,fieldnames=list(dict.fromkeys(k for row in rows for k in row)));w.writeheader();w.writerows(rows)
-def aug(path):
+  w=csv.DictWriter(f,fieldnames=list(dict.fromkeys(k for row in rows for k in row)),lineterminator="\n");w.writeheader();w.writerows(rows)
+def aug(path,date='2026-08-31',source_id='UNHCR_AUG',expected=(251166,1204492)):
  ws=openpyxl.load_workbook(path,data_only=True).worksheets[0]
  blocks=[];published={};camp=None;grand=None
  for idx,row in enumerate(ws.values,1):
@@ -34,11 +34,11 @@ def aug(path):
   b=[x for x in blocks if x['label']==label]
   assert sum(x['population'] for x in b)==pop,(label,'subtotal')
   assert sum(x['families'] for x in b)==fam
-  groups.append({'label':label,'date':'2026-08-31','families':fam,'population':pop,'source_id':'UNHCR_AUG','missing_block_rows':sum(x['block_id'] is None for x in b)})
+  groups.append({'label':label,'date':date,'families':fam,'population':pop,'source_id':source_id,'missing_block_rows':sum(x['block_id'] is None for x in b)})
   for age,_,_ in AGES:
-   for sex in ['female','male']:demo.append({'label':label,'date':'2026-08-31','age':age,'sex':sex,'population':sum(x[age+'_'+sex] for x in b),'source_id':'UNHCR_AUG'})
+   for sex in ['female','male']:demo.append({'label':label,'date':date,'age':age,'sex':sex,'population':sum(x[age+'_'+sex] for x in b),'source_id':source_id})
  assert (sum(x['families'] for x in groups),sum(x['population'] for x in groups))==grand
- assert grand==(251166,1204492)
+ assert grand==expected
  return blocks,groups,demo
 
 def sep(path):
@@ -53,7 +53,14 @@ def sep(path):
 
 def build(raw,inputs,out):
  out.mkdir(exist_ok=True,parents=True)
- blocks,a,demo=aug(raw/'unhcr_august_2026.xlsx');s=sep(raw/'unhcr_sep2026.pdf')
+ blocks,a,demo=aug(raw/'unhcr_august_2026.xlsx')
+ sep_blocks,s,sep_demo=aug(raw/'unhcr_september_2026.xlsx','2026-09-30','UNHCR_SEP_XLSX',(251635,1206528))
+ pdf=sep(raw/'unhcr_sep2026.pdf')
+ assert {x['label']:(x['families'],x['population']) for x in s}=={x['label']:(x['families'],x['population']) for x in pdf},'September XLSX/PDF mismatch'
+ demo+=sep_demo
+ keyed=[{(x['label'],x['block_id']):x for x in rows if x['block_id']} for rows in [blocks,sep_blocks]]
+ assert all(len(k)==sum(x['block_id'] is not None for x in rows) for k,rows in zip(keyed,[blocks,sep_blocks])),'Duplicate nonblank camp/block keys'
+ assert keyed[0].keys()==keyed[1].keys(),'Changed block key coverage needs review'
  assert {x['label'] for x in a}=={x['label'] for x in s}
  by={x['label']:x for x in a}
  changes=[{'label':x['label'],'august':by[x['label']]['population'],'september':x['population'],'change':x['population']-by[x['label']]['population'],'change_pct':round((x['population']/by[x['label']]['population']-1)*100,6),'join_method':'exact normalized published name; asterisk footnotes removed','source_ids':['UNHCR_AUG','UNHCR_SEP']} for x in s]
@@ -73,8 +80,9 @@ def build(raw,inputs,out):
  feed=json.load(open(raw/'unhcr_population.json'))['data'][0]
  assert feed['date']=='2026-09-30' and int(feed['individuals'])==1173291
  qa=[{'rule':'August total and 35 subtotals','status':'PASS','detail':'279 detail rows reconcile to 1,204,492 individuals and 251,166 families.'},
- {'rule':'Age-sex categories','status':'PASS','detail':'12 disjoint broad age/sex cells sum to each of 279 source detail rows; alternate five-year sheet excluded.'},
- {'rule':'September completeness','status':'PASS','detail':'All 35 PDF groups extracted; 1,206,528 individuals and 251,635 families. Full September block workbook remains unavailable.'},
+ {'rule':'Age-sex categories','status':'PASS','detail':'12 disjoint broad age/sex cells sum to every detail row in both workbooks; 840 camp/age/sex aggregates; alternate five-year sheets excluded.'},
+ {'rule':'September completeness','status':'PASS','detail':f'Official September XLSX: {len(sep_blocks)} detail rows and 35 group subtotals reconcile to 1,206,528 individuals and 251,635 families. All 35 family/population totals independently match PDF page 2.'},
+ {'rule':'Block-key continuity','status':'PASS','detail':f'{len(keyed[0])} unique nonblank camp/block keys match across both workbooks; missing IDs retained, not joined or imputed.'},
  {'rule':'Cross-month keys','status':'PASS','detail':'35/35 exact normalized names. RC footnote asterisks stripped; no fuzzy matching.'},
  {'rule':'Missing August block identifiers','status':'WARNING','detail':str(sum(b['block_id'] is None for b in blocks))+' rows retain missing source IDs; no invented codes.'},
  {'rule':'UNHCR HTML/JSON freshness','status':'RESOLVED','detail':'Earlier archived disagreement no longer reproduced: downloaded feed now reports 30 Sep 2026 and 1,173,291 CXB. Checked 20 Oct 2026.'},
@@ -82,13 +90,14 @@ def build(raw,inputs,out):
  {'rule':'WASH point redistribution','status':'BLOCKED','detail':'Historical September 2025 infrastructure acquired; explicit reuse terms and field functionality definitions unresolved. Precise points withheld from public app.'}]
  sources=[]
  specs=[('UNHCR_AUG','unhcr_august_2026.xlsx','GoB / UNHCR','https://drive.google.com/file/d/1eVSV8CEzqqcimyBTCX-SobmmNZ0x16T2/view','2026-08-31','279 block/detail rows; 35 groups','Public source workbook; original retained in private Drive. Camp-level statistical facts attributed; source not relicensed.','Original XLSX; Standard breakdown; rows 10–324'),('UNHCR_SEP','unhcr_sep2026.pdf','GoB / UNHCR','https://data.unhcr.org/en/documents/details/124447','2026-09-30','35 camp/geography groups','UNHCR ODP CC BY 4.0 except stated otherwise; source attribution retained.','Original PDF; page 2 population table'),('UNICEF_H1','unicef_h1_2026.pdf','UNICEF Bangladesh','https://www.unicef.org/media/183486/file/Bangladesh-Humanitarian-Situation-Report-No.75%28Mid-Year%29%2C30-June-2026.pdf.pdf','2026-06-30','Bangladesh HAC; headline reach CXB + Bhasan Char','Statistical facts with attribution; original PDF not redistributed by app.','Original PDF page 1 chart and Highlights'),('UNHCR_JSON','unhcr_population.json','GoB / UNHCR','https://data.unhcr.org/population/?geo_id=591&population_group=5555&widget_id=691154','2026-09-30','Cox’s Bazar aggregate','UNHCR ODP CC BY 4.0 default','Original API JSON; first data record'),('WASH_2025','wash_infrastructure_sep2025.zip','WASH Sector / Rohingya Response','https://rohingyaresponse.org/sectors/coxs-bazar/wash/','2025-09','Historical inventory; exact observation dates not provided for each record','Explicit dataset redistribution terms unconfirmed; point data not publicly served.','Original ZIP shapefile and attribute workbook')]
+ specs.append(('UNHCR_SEP_XLSX','unhcr_september_2026.xlsx','GoB / UNHCR','https://data.unhcr.org/en/documents/details/124450','2026-09-30','279 detail rows; 35 groups; 420 age/sex aggregates','UNHCR ODP CC BY 4.0 except stated otherwise; attribution retained.','Original XLSX; Standard breakdown; rows 10–324; all group totals cross-checked against independent PDF'))
  for sid,f,publisher,url,date,coverage,license,lineage in specs:
   sources.append(dict(id=sid,publisher=publisher,url=url,reference_date=date,retrieved_at='2026-10-20',filename=f,sha256=digest(raw/f),byte_size=(raw/f).stat().st_size,coverage=coverage,licence=license,lineage=lineage,units='individuals/families' if sid.startswith('UNHCR') else 'percent or people' if sid=='UNICEF_H1' else 'source inventory records; units require field-specific interpretation',status='verified original'))
  with zipfile.ZipFile(raw/'wash_infrastructure_sep2025.zip') as z:
   shp_index=z.read(next(n for n in z.namelist() if n.endswith('.shx')))
   inventory_records=(len(shp_index)-100)//8
- data={'release':'0.1.0','built_on':'2026-10-20','population':a+s,'demographics':demo,'changes':changes,'indicators':inds,'reach':reach,'sources':sources,'quality':qa,'geometry':{'type':'FeatureCollection','features':[]},'wash':{'status':'publication gated','records':inventory_records,'reference_period':'September 2025 archive','note':'Acquired inventory; record count is not functional facility capacity. Exact point redistribution terms unconfirmed.'}}
- data['summary']={'august_population':sum(x['population'] for x in a),'september_population':sum(x['population'] for x in s),'change':sum(x['change'] for x in changes),'groups':35,'matched_groups':35,'august_detail_rows':len(blocks),'missing_block_ids':sum(x['block_id'] is None for x in blocks),'september_cxb':1173291,'september_bhasan_char':33237}
+ data={'release':'0.2.0','built_on':'2026-10-20','population':a+s,'demographics':demo,'changes':changes,'indicators':inds,'reach':reach,'sources':sources,'quality':qa,'geometry':{'type':'FeatureCollection','features':[]},'wash':{'status':'publication gated','records':inventory_records,'reference_period':'September 2025 archive','note':'Acquired inventory; record count is not functional facility capacity. Exact point redistribution terms unconfirmed.'}}
+ data['summary']={'august_population':sum(x['population'] for x in a),'september_population':sum(x['population'] for x in s),'change':sum(x['change'] for x in changes),'groups':35,'matched_groups':35,'august_detail_rows':len(blocks),'missing_block_ids':sum(x['block_id'] is None for x in blocks),'september_detail_rows':len(sep_blocks),'september_missing_block_ids':sum(x['block_id'] is None for x in sep_blocks),'matched_nonblank_block_keys':len(keyed[0]),'september_cxb':1173291,'september_bhasan_char':33237}
  data['findings']=[{'title':'Published population rose by 2,036','observation':'1,204,492 → 1,206,528 (+0.169%) between 31 August and 30 September 2026.','method':'Sum all 35 groups per date and subtract August from September.','limitation':'Registered/biometrically identified population snapshots; changes do not identify migration, births or registration effects.','source_ids':['UNHCR_AUG','UNHCR_SEP']}, {'title':'Camp 4 Extension has the largest percentage increase','observation':'Camp 4 Extension: 11,705 → 12,070 people (+365; +3.118%). Largest absolute and percentage increase among 35 matched groups.','method':'(September / August − 1) × 100 for each of 35 matched groups.','limitation':'Count changes only; geographic definitions and field mechanisms need verification.','source_ids':['UNHCR_AUG','UNHCR_SEP']},{'title':'Water and sanitation remain below annual targets at H1','observation':'Published target attainment: water 49%, sanitation 53%; separate WASH funding status 67%.','method':'Read page 1 UNICEF response chart. Shortfall to annual target is 51 and 47 percentage points.','limitation':'Mid-year annual-target progress is not evidence of being behind schedule; no planned H1 trajectory. Funding is a distinct measure.','source_ids':['UNICEF_H1']}]
  (out/'release.json').write_text(json.dumps(data,ensure_ascii=False,indent=2))
  writecsv(out/'population.csv',data['population']);writecsv(out/'demographics.csv',demo)

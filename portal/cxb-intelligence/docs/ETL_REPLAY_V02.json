@@ -1,0 +1,12 @@
+{
+  "separate_directory_replay": "PASS",
+  "release_objects_equal": true,
+  "release_bytes_equal": true,
+  "sha256": "7ddcd9d9f269f199ef6c51046e86e0457b73e3fffb88734a9109bb550db42595",
+  "pipeline": [
+    "original XLSX + independent PDF + UNICEF",
+    "HDX CRS/crosswalk",
+    "private WASH spatial and publisher-pivot reconciliation"
+  ],
+  "applicant_independent_execution": false
+}

@@ -4,9 +4,11 @@ from pathlib import Path
 from fastapi import FastAPI,HTTPException,Query
 from fastapi.responses import FileResponse,Response
 from fastapi.staticfiles import StaticFiles
+from typing import Literal
+from app import maps
 import psycopg
 ROOT=Path(__file__).resolve().parents[1]
-app=FastAPI(title="Cox's Bazar Public Evidence Platform",version='0.1.0')
+app=FastAPI(title="Cox's Bazar Public Evidence Platform",version='0.2.0')
 
 def release():
  url=os.getenv('DATABASE_URL')
@@ -17,6 +19,7 @@ def release():
     c.execute('SET LOCAL statement_timeout=5000')
     r=c.execute("SELECT payload,sha256 FROM cxb.analysis_release WHERE id='current'").fetchone()
     if r:return r[0],'PostgreSQL / Neon',r[1]
+    raise HTTPException(503,'Verified database release is unavailable.')
   except psycopg.Error:raise HTTPException(503,'Database temporarily unavailable; retry shortly.')
  p=ROOT/'data/release.json'
  return json.loads(p.read_text()),'local verified release',hashlib.sha256(p.read_bytes()).hexdigest()
@@ -40,11 +43,11 @@ def population(date:str=Query('2026-09-30',pattern='^2026-(08-31|09-30)$'),camp:
  return {'rows':r,'total':sum(x['population'] for x in r),'source_id':r[0]['source_id'] if r else None,'date':date}
 @app.get('/api/export/{dataset}.csv')
 def export(dataset:str,date:str|None=None,camp:str|None=None,search:str|None=None):
- d,_,_=release();allowed={'population':'population','changes':'changes','demographics':'demographics','sectors':'indicators','sources':'sources'}
+ d,_,_=release();allowed={'population':'population','changes':'changes','demographics':'demographics','sectors':'indicators','sources':'sources','wash':'wash'}
  if dataset not in allowed:raise HTTPException(404,'Unknown dataset')
- rows=d[allowed[dataset]]
+ rows=d['wash']['audit']['camp_aggregates'] if dataset=='wash' else d[allowed[dataset]]
  if date:rows=[x for x in rows if x.get('date')==date]
- if camp:rows=[x for x in rows if x.get('label')==camp]
+ if camp:rows=[x for x in rows if x.get('label',x.get('camp'))==camp]
  if search:rows=[x for x in rows if search.lower() in x.get('label','').lower()]
  if not rows:raise HTTPException(404,'No records match filters')
  rows=[{k:json.dumps(v) if isinstance(v,(dict,list)) else v for k,v in x.items()} for x in rows]
@@ -52,6 +55,12 @@ def export(dataset:str,date:str|None=None,camp:str|None=None,search:str|None=Non
  return Response(out.getvalue(),media_type='text/csv',headers={'Content-Disposition':f'attachment; filename="{dataset}.csv"'})
 @app.get('/api/geometry')
 def geometry():return release()[0]['geometry']
+@app.get('/api/map.svg')
+def map_svg(metric:Literal['population','change']='population',camp:str|None=None):
+ return Response(maps.svg(release()[0],metric,camp),media_type='image/svg+xml',headers={'Content-Disposition':'attachment; filename="Coxs_Bazar_Camp_Map.svg"'})
+@app.get('/api/map.pdf')
+def map_pdf(metric:Literal['population','change']='population',camp:str|None=None):
+ return Response(maps.pdf(release()[0],metric,camp),media_type='application/pdf',headers={'Content-Disposition':'attachment; filename="Coxs_Bazar_Camp_Map.pdf"'})
 @app.get('/api/report.pdf')
 def report():
  from reportlab.pdfgen import canvas
@@ -66,7 +75,7 @@ def report():
   for s in [line for chunk in wrapped for line in simpleSplit(chunk,'Helvetica',size,490)]:
    if y<65:c.showPage();y=800;c.setFont('Helvetica',size)
    c.drawString(50,y,s);y-=size+5
- line("Cox's Bazar | Public Evidence Brief",17);line('Independent AI-assisted portfolio project | Release 0.1.0 | 20 October 2026');line('Not an official UN, UNICEF or NSDA operational system.');y-=12
+ line("Cox's Bazar | Public Evidence Brief",17);line('Independent AI-assisted portfolio project | Release '+d['release']+' | 20 October 2026');line('Not an official UN, UNICEF or NSDA operational system.');y-=12
  for f in d['findings']:
   line(f['title'],12);line(f['observation']);line('Calculation: '+f['method']);line('Limit: '+f['limitation']);line('Sources: '+', '.join(f['source_ids']));y-=8
  line('Scope and provenance',12)

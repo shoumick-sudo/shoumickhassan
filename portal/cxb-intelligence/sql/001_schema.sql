@@ -11,3 +11,5 @@ CREATE OR REPLACE VIEW cxb.population_change AS
  round(100.0*(b.individuals-a.individuals)/NULLIF(a.individuals,0),6) AS change_pct
  FROM cxb.population_snapshot a JOIN cxb.population_snapshot b USING(geo_id) JOIN cxb.geography g ON g.id=a.geo_id
  WHERE a.observation_date='2026-08-31' AND b.observation_date='2026-09-30';
+
+CREATE TABLE IF NOT EXISTS cxb.wash_camp_audit(geo_id text REFERENCES cxb.geography(id), source_id text REFERENCES cxb.source_asset(id), summary jsonb NOT NULL, PRIMARY KEY(geo_id,source_id));
