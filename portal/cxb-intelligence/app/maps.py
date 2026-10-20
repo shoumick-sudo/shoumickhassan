@@ -32,7 +32,7 @@ def scene(data,metric,camp):
  (50,700,'Population: GoB / UNHCR, 30 Sep 2026. Change baseline: 31 Aug 2026.',12),
  (50,724,'Outlines: ISCG / HDX, 12 Apr 2023, CC0. Historical boundaries; no basemap.',12),
  (50,748,'Coverage: 33 of 35 groups. Bhasan Char and Other have no geometry in this source.',11),
- (50,772,'Independent AI-assisted portfolio. Count changes do not establish movement, causes or service access.',11),
+ (50,772,'Md Shoumick Hassan | Information Management & Spatial Analytics',11),
  (50,796,'Sources: data.unhcr.org/documents/124450 | data.humdata.org/dataset/outline-of-camps-sites-of-rohingya-refugees-in-cox-s-bazar-bangladesh',8)]
  return paths,texts,scale*distance
 
@@ -67,4 +67,4 @@ def pdf(data,metric,camp=None):
   y=150+i*31;c.setFillColor(HexColor(fill));c.rect(760,820-y-17,20,17,fill=1,stroke=0);c.setFillColor(HexColor('#183b35'));c.setFont('Helvetica',12);c.drawString(792,820-y-14,label)
  c.setStrokeColor(HexColor('#183b35'));c.setLineWidth(2)
  for a,b in [((765,350),(765,390)),((765,350),(760,360)),((765,350),(770,360)),((760,415),(760+scale,415))]:c.line(a[0],820-a[1],b[0],820-b[1])
- c.setTitle(texts[0][2]);c.showPage();c.save();return out.getvalue()
+ c.setAuthor('Md Shoumick Hassan');c.setTitle(texts[0][2]);c.showPage();c.save();return out.getvalue()

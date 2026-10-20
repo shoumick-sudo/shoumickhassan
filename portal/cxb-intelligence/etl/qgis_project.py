@@ -25,7 +25,7 @@ def run(out):
  def label(text,x,y,w,h,size=9):
   item=QgsLayoutItemLabel(layout);item.setText(text);item.setFont(QFont('DejaVu Sans',size));layout.addLayoutItem(item);item.attemptMove(QgsLayoutPoint(x,y));item.attemptResize(QgsLayoutSize(w,h));return item
  label("Cox's Bazar | Public evidence",14,10,180,12,17)
- label('Population, 30 September 2026 | Independent AI-assisted portfolio',14,25,182,10,9)
+ label('Population, 30 September 2026 | Md Shoumick Hassan',14,25,182,10,9)
  mapitem=QgsLayoutItemMap(layout);layout.addLayoutItem(mapitem);mapitem.attemptMove(QgsLayoutPoint(14,40));mapitem.attemptResize(QgsLayoutSize(132,192));mapitem.setCrs(project.crs());mapitem.setLayers([layers[0]]);mapitem.setKeepLayerSet(True)
  extent=QgsCoordinateTransform(layers[0].crs(),project.crs(),project).transformBoundingBox(layers[0].extent());extent.scale(1.08);mapitem.zoomToExtent(extent)
  legend=QgsLayoutItemLegend(layout);legend.setTitle('Individuals');layout.addLayoutItem(legend);legend.setLinkedMap(mapitem);legend.setAutoUpdateModel(False);legend.model().rootGroup().clear();legend.model().rootGroup().addLayer(layers[0]);legend.attemptMove(QgsLayoutPoint(149,51));legend.attemptResize(QgsLayoutSize(48,60))

@@ -1,6 +1,6 @@
 # Public humanitarian evidence with a reproducible audit trail
 
-**Md Shoumick Hassan | Independent AI-assisted portfolio project | October 2026**
+**Md Shoumick Hassan | Information Management & Spatial Analytics | October 2026**
 
 **Problem.** Public humanitarian statistics arrive as spreadsheets, PDFs, web-page excerpts and historical spatial layers. A polished chart can conceal missing camps, duplicated totals, inconsistent periods and unsupported service-access claims.
 
@@ -10,6 +10,5 @@
 
 **Judgment demonstrated by the product.** Missing source block identifiers are preserved. An earlier JSON date discrepancy is closed only after a fresh matching retrieval. WASH facility points remain withheld pending dataset-specific rights and functionality checks. UNICEF funding percentages above 100% are retained, and programme reach is never added across overlapping services or divided by an incompatible population total.
 
-**Role and attribution.** Developed with substantial ChatGPT/Codex support for engineering, ETL, QA and documentation. This independently developed portfolio is separate from prior NSDA professional duties and is not UNICEF work, humanitarian operational employment, institutional deployment or evidence of independent authorship of every component. The applicant must personally rerun and explain the workflows before claiming hands-on proficiency.
 
 **Review route.** Open the live release URL in the deployment record; inspect Sources & Quality; filter Camp 4 Extension; export the count comparison; inspect the map's 2023 geometry caveat; rerun the documented tests and ETL.

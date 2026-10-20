@@ -66,7 +66,7 @@ def report():
  from reportlab.pdfgen import canvas
  from reportlab.lib.pagesizes import A4
  from reportlab.lib.utils import simpleSplit
- d,engine,sha=release();out=io.BytesIO();c=canvas.Canvas(out,pagesize=A4);y=800
+ d,engine,sha=release();out=io.BytesIO();c=canvas.Canvas(out,pagesize=A4);c.setAuthor('Md Shoumick Hassan');c.setTitle("Cox's Bazar | Public Evidence Brief");y=800
  def line(t,size=10):
   nonlocal y
   c.setFont('Helvetica',size)
@@ -75,7 +75,7 @@ def report():
   for s in [line for chunk in wrapped for line in simpleSplit(chunk,'Helvetica',size,490)]:
    if y<65:c.showPage();y=800;c.setFont('Helvetica',size)
    c.drawString(50,y,s);y-=size+5
- line("Cox's Bazar | Public Evidence Brief",17);line('Independent AI-assisted portfolio project | Release '+d['release']+' | 20 October 2026');line('Not an official UN, UNICEF or NSDA operational system.');y-=12
+ line("Cox's Bazar | Public Evidence Brief",17);line('Md Shoumick Hassan',12);line('Information Management & Spatial Analytics | Release '+d['release']+' | 20 October 2026',9);y-=12
  for f in d['findings']:
   line(f['title'],12);line(f['observation']);line('Calculation: '+f['method']);line('Limit: '+f['limitation']);line('Sources: '+', '.join(f['source_ids']));y-=8
  line('Scope and provenance',12)

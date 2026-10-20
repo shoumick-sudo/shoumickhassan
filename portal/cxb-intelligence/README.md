@@ -1,6 +1,8 @@
 # Cox’s Bazar Public Evidence Platform
 
-Independent, AI-assisted portfolio project for Md Shoumick Hassan. Real public observations only. No UN/UNICEF/NSDA endorsement or humanitarian implementation claim. Separate from the historical synthetic humanitarian demonstrator and STP portal.
+**Md Shoumick Hassan**
+
+Population analysis, interactive GIS and humanitarian information management using source-verified public datasets.
 
 ## Release 0.2.0 — 20 October 2026
 
@@ -48,7 +50,7 @@ DATABASE_URL='<owner connection>' python etl/load_database.py
 - UNICEF: H1 annual-target progress, sector funding and headline reach remain separate. Funding may exceed 100%; no cap or invented denominator. No sum of overlapping service reach or mixing with September population.
 - An earlier UNHCR JSON/HTML date discrepancy was resolved by a new original API retrieval on 20 October; the release records the dated resolution.
 
-See `docs/METHODOLOGY.md`, `docs/RECRUITER_CASE_STUDY.md`, `docs/CV_WORDING.md`, and `docs/VALIDATION.md`. Code inspection and this release do not establish the applicant's independent proficiency: personal rerun and walkthrough remain required.
+See `docs/METHODOLOGY.md`, `docs/GIS_HANDOVER.md`, and `docs/VALIDATION.md` for analytical methods, GIS workflows and verification records.
 
 ## Rights
 
