@@ -12,7 +12,9 @@ def release():
  url=os.getenv('DATABASE_URL')
  if url:
   try:
-   with psycopg.connect(url,connect_timeout=8,options='-c default_transaction_read_only=on -c statement_timeout=5000') as c:
+   with psycopg.connect(url,connect_timeout=8) as c:
+    c.execute('SET TRANSACTION READ ONLY')
+    c.execute('SET LOCAL statement_timeout=5000')
     r=c.execute("SELECT payload,sha256 FROM cxb.analysis_release WHERE id='current'").fetchone()
     if r:return r[0],'PostgreSQL / Neon',r[1]
   except psycopg.Error:raise HTTPException(503,'Database temporarily unavailable; retry shortly.')
